@@ -1,0 +1,45 @@
+﻿<Window x:Class="aes128tools.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aes128tools.ViewModel"
+        xmlns:converters="clr-namespace:aes128tools.Converters"
+        mc:Ignorable="d"
+        Title="AESTool" Height="460.176" Width="634.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="White" Icon="/aes128tools;component/resorces/ico/aes.ico" Topmost="True">
+
+    <Window.Resources>
+        <local:AesViewModel x:Key="DataContext"/>
+        <converters:HexStringConverter x:Key ="HexStringConverter"/>
+    </Window.Resources>
+
+
+
+    <Grid DataContext="{StaticResource DataContext}" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+
+        <Label x:Name="Label"  Content="Plain Data" HorizontalAlignment="Left" Margin="36,43,0,0" VerticalAlignment="Top" Height="30" FontWeight="Bold" RenderTransformOrigin="0.358,-0.962" Width="84" FontSize="14"/>
+        <TextBox x:Name="PlainText" MaxLength="32" HorizontalAlignment="Left" Height="30" Margin="126,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="473" Text="{ Binding AesModel.PlainData, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexStringConverter} }" FontSize="14"/>
+        <Label  x:Name="PlError" FontWeight="Bold" Foreground="Red" Content="{Binding ElementName = PlainText, Path = (Validation.Errors).CurrentItem.ErrorContent}" HorizontalAlignment="Left" Margin="128,73,0,0" VerticalAlignment="Top" Width="471" Height="32" FontSize="14"/>
+
+        <Label x:Name="Label1" Content="Key" HorizontalAlignment="Left" Margin="79,126,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="41" Height="30" RenderTransformOrigin="0.366,-1" FontSize="14"/>
+        <TextBox x:Name="KeyText" MaxLength="32" HorizontalAlignment="Left" Height="30" Margin="126,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Text="{Binding AesModel.Key, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexStringConverter} }" FontSize="14" />
+        <Label  x:Name="KeyError" FontWeight="Bold" Foreground="Red" Content="{Binding ElementName=KeyText, Path=(Validation.Errors).CurrentItem.ErrorContent }" HorizontalAlignment="Left" Margin="128,156,0,0" VerticalAlignment="Top" Width="471" Height="32" FontSize="14"/>
+
+        <Label x:Name="Label2" Content="IV" HorizontalAlignment="Left" Margin="89,212,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="31" Height="30" RenderTransformOrigin="-1.966,-0.375" FontSize="14"/>
+        <TextBox x:Name="IvText" MaxLength="32" HorizontalAlignment="Left" Height="30" Margin="126,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="473" Text="{Binding AesModel.IV, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexStringConverter} }" FontSize="14"/>
+        <Label  x:Name="IvError" FontWeight="Bold" Foreground="Red" Content="{ Binding ElementName = IvText, Path = (Validation.Errors).CurrentItem.ErrorContent}" HorizontalAlignment="Left" Margin="128,242,0,0" VerticalAlignment="Top" Width="471" Height="32" FontSize="14"/>
+
+        <Label x:Name="EncrytpData" Content="Encrypt Data" HorizontalAlignment="Left" Margin="25,287,0,0" VerticalAlignment="Top" Height="30" FontWeight="Bold" Width="95" RenderTransformOrigin="0.486,0.088" FontSize="14"/>
+        <TextBox x:Name="EncryptText" MaxLength="32" HorizontalAlignment="Left" Height="30" Margin="126,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="471" Text="{Binding AesModel.EncrypData, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexStringConverter} }" FontSize="14"/>
+        <Label  x:Name="EnError" FontWeight="Bold" Foreground="Red" Content="{Binding ElementName=EncryptText, Path = (Validation.Errors).CurrentItem.ErrorContent}" HorizontalAlignment="Left" Margin="126,317,0,0" VerticalAlignment="Top" Width="471" Height="32" FontSize="14"/>
+
+        <Button x:Name="EncryptBotton" Content="Encrypt" HorizontalAlignment="Left" Margin="145,375,0,0" VerticalAlignment="Top" Width="88" Click="EncryptBotton_Click" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="25"/>
+        <Button x:Name="DecryptBtton" Content="Decrypt" HorizontalAlignment="Left" Margin="393,375,0,0" VerticalAlignment="Top" Width="88" Click="DecryptBtton_Click" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="25"/>
+
+
+
+
+
+
+    </Grid>
+</Window>
